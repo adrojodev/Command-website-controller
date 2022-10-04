@@ -54,22 +54,17 @@ export async function saveNewCommandOnDatabase(
 }
 
 export function getInteractionsFromDatabase() {
-  return new Promise(function (resolve, reject) {
-    try {
-      onValue(ref(database, `interactions`), (snapshot) => {
-        interaction = snapshot.val();
-        interaction = Object.values(interaction);
-        snapshot.forEach((child) => {
-          keyNumbers.push(child.key);
-        });
-        interactions = [interaction, keyNumbers];
+  onValue(ref(database, `interactions`), (snapshot) => {
+    interaction = snapshot.val();
+    interaction = Object.values(interaction);
+    snapshot.forEach((child) => {
+      keyNumbers.push(child.key);
+    });
 
-        resolve(interactions);
-      });
-    } catch (e) {
-      reject(e);
-    }
+    interactions = [interaction, keyNumbers];
   });
+
+  return interactions;
 }
 
 export function getSpecificInteractionFromDatabase(elementId) {

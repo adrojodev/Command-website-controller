@@ -13,12 +13,9 @@ import { getInteractionsFromDatabase } from "../functions/firebase.jsx";
 import InteractionListing from "../components/InteractionListing.astro";
 import InteractionCard from "../components/InteractionCard.astro";
 
-let interactions;
-let keyNumber;
-const hola = getInteractionsFromDatabase().then((interaction) => {
-  interactions = interaction[0];
-  keyNumber = interaction[1];
-});
+const hola = getInteractionsFromDatabase();
+const interactions = hola[0];
+const keyNumber = hola[1];
 ---
 
 <Layout title="Welcome to Astro.">
