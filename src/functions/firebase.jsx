@@ -57,8 +57,6 @@ export function getInteractionsFromDatabase() {
     let size = snapshot.val();
     size = Object.values(size);
     interactions = size;
-
-    resolve(interactions);
   });
 
   return interactions;
