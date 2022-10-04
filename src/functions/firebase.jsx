@@ -18,7 +18,7 @@ function uuidv4() {
     ).toString(16)
   );
 }
-
+//try
 const firebaseConfig = {
   apiKey: "AIzaSyCbDLF09yn8kxHXfnULe7fraIwXMdMEx4M",
   authDomain: "humankind-637da.firebaseapp.com",
