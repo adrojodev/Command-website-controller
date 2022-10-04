@@ -53,19 +53,12 @@ export async function saveNewCommandOnDatabase(
 }
 
 export function getInteractionsFromDatabase() {
-  //prettier-ignore
-  return new Promise(function (resolve, reject) {
-    try {
-      onValue(ref(database, `interactions`), (snapshot) => {
-        let size = snapshot.val();
-        size = Object.values(size);
-        interactions = size;
+  onValue(ref(database, `interactions`), (snapshot) => {
+    let size = snapshot.val();
+    size = Object.values(size);
+    interactions = size;
 
-        resolve(interactions);
-      });
-    } catch (e) {
-      reject(e);
-    }
+    resolve(interactions);
   });
 
   return interactions;
