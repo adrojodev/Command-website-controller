@@ -1,6 +1,7 @@
 [functions]
   external_node_modules = ["astro"]
-  
+  included_files = ["!node_modules/ENTRY/**/*"]
+
 [build]
   command = "npm run build"
   publish = "dist"
