@@ -8,9 +8,4 @@ export default defineConfig({
   output: "server",
   adapter: netlify(),
   integrations: [react()],
-  build: {
-    rollupOptions: {
-      external: [/^node:.*/],
-    },
-  },
 });
