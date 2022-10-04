@@ -13,7 +13,7 @@ import { getInteractionsFromDatabase } from "../functions/firebase";
 import InteractionListing from "../components/InteractionListing.astro";
 import InteractionCard from "../components/InteractionCard.astro";
 
-var interactions = getInteractionsFromDatabase();
+let interactions = getInteractionsFromDatabase();
 ---
 
 <Layout title="Welcome to Astro.">
