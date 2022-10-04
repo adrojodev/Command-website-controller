@@ -1,7 +1,12 @@
 ---
+export interface Props {
+  ids: string;
+}
+
+const { ids } = Astro.props;
 ---
 
-<div class="interactionsListing">
+<div class="interactionsListing" id={ids}>
   <slot />
 </div>
 

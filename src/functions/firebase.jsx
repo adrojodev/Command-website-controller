@@ -7,9 +7,8 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 
-let interaction;
-let keyNumbers = [];
 let interactions = [];
+let keyNumbers = [];
 
 function uuidv4() {
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
@@ -54,14 +53,19 @@ export async function saveNewCommandOnDatabase(
 }
 
 export function getInteractionsFromDatabase() {
-  onValue(ref(database, `interactions`), (snapshot) => {
-    interaction = snapshot.val();
-    interaction = Object.values(interaction);
-    snapshot.forEach((child) => {
-      keyNumbers.push(child.key);
-    });
+  //prettier-ignore
+  return new Promise(function (resolve, reject) {
+    try {
+      onValue(ref(database, `interactions`), (snapshot) => {
+        let size = snapshot.val();
+        size = Object.values(size);
+        interactions = size;
 
-    interactions = [interaction, keyNumbers];
+        resolve(interactions);
+      });
+    } catch (e) {
+      reject(e);
+    }
   });
 
   return interactions;

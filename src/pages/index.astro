@@ -9,13 +9,14 @@ import InputFieldAndButtonContainer from "../components/InputFieldAndButtonConta
 import CancelButton from "../components/CancelButton";
 import "../styles/button.css";
 import "../styles/verticalButtonContainer.css";
-import { getInteractionsFromDatabase } from "../functions/firebase.jsx";
+import { getInteractionsFromDatabase } from "../functions/firebase";
 import InteractionListing from "../components/InteractionListing.astro";
 import InteractionCard from "../components/InteractionCard.astro";
 
-const hola = getInteractionsFromDatabase();
-const interactions = hola[0];
-const keyNumber = hola[1];
+var interactions = [];
+getInteractionsFromDatabase().then((resolve) => {
+  interactions = resolve;
+});
 ---
 
 <Layout title="Welcome to Astro.">
@@ -70,19 +71,35 @@ const keyNumber = hola[1];
     iconUsed="add"
     buttonType="normal"
   />
-  <InteractionListing>
+  <InteractionListing ids="interactionListings">
     {
-      interactions.map((interaction, index) => {
-        return (
-          <InteractionCard
-            title={interaction.name}
-            description={interaction.description}
-            id={keyNumber[index]}
-            commands={interaction.commands}
-            responses={interaction.responses}
-          />
-        );
-      })
+      interactions.map(
+        (interaction: {
+          name: string;
+          description: string;
+          key: string;
+          commands: string[];
+          responses: string[];
+        }) => {
+          return (
+            <InteractionCard
+              title={interaction.name}
+              description={interaction.description}
+              id={interaction.key}
+              commands={interaction.commands}
+              responses={interaction.responses}
+            />
+          );
+        }
+      )
     }
   </InteractionListing>
+  <script is:inline>
+    window.addEventListener("load", (event) => {
+      //Reloads until get firebase data
+      if (document.getElementsByClassName("card").length == 1) {
+        window.location.reload();
+      }
+    });
+  </script>
 </Layout>
