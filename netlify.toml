@@ -1,5 +1,6 @@
 [functions]
   external_node_modules = ["astro"]
+  included_files = ["!node_modules/A_LARGE_MODULE/**/*"]
 
 [build]
   command = "npm run build"
