@@ -9,6 +9,7 @@ import {
 
 let interaction;
 let keyNumbers = [];
+let interactions = [];
 
 function uuidv4() {
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
@@ -53,15 +54,22 @@ export async function saveNewCommandOnDatabase(
 }
 
 export function getInteractionsFromDatabase() {
-  onValue(ref(database, `interactions`), (snapshot) => {
-    interaction = snapshot.val();
-    interaction = Object.values(interaction);
-    snapshot.forEach((child) => {
-      keyNumbers.push(child.key);
-    });
-  });
+  return new Promise(function (resolve, reject) {
+    try {
+      onValue(ref(database, `interactions`), (snapshot) => {
+        interaction = snapshot.val();
+        interaction = Object.values(interaction);
+        snapshot.forEach((child) => {
+          keyNumbers.push(child.key);
+        });
+        interactions = [interaction, keyNumbers];
 
-  return { interaction, keyNumbers };
+        resolve(interactions);
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
 }
 
 export function getSpecificInteractionFromDatabase(elementId) {
