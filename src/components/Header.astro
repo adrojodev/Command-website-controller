@@ -1,0 +1,12 @@
+---
+export interface Props {
+  headerSize: string;
+  id: string;
+}
+
+const { headerSize, id } = Astro.props;
+---
+
+<h1 class={"header " + headerSize} id={id}>
+  <slot />
+</h1>

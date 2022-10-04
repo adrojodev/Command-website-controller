@@ -1,0 +1,75 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      function removeInput(element) {
+        element.parentNode.remove();
+      }
+
+      function detectCharacters(textField) {
+        let textCharacters = textField.value.length;
+
+        if (textCharacters > 20) {
+          const textareaElement = document.createElement("textarea");
+          textareaElement.value = textField.value;
+          textField.replaceWith(textareaElement);
+        }
+      }
+
+      function deleteEmptyClassHome(textField) {
+        textField.classList.remove("emptyInput");
+      }
+
+      function clickInput(e) {
+        e.parentNode.getElementsByTagName("input")[0].click();
+      }
+    </script>
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <style>
+      @font-face {
+        font-family: "TTCommonsProBold";
+        src: url("/fonts/TTCommonsProBold.ttf");
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "TTCommonsProDemiBold";
+        src: url("/fonts/TTCommonsProDemiBold.ttf");
+        font-weight: demibold;
+        font-style: normal;
+        font-display: swap;
+      }
+      body {
+        background-color: #f8f8f8;
+        font-family: "TTCommonsProDemiBold";
+        display: flex;
+        gap: 32px;
+        flex-direction: column;
+        justify-content: stretch;
+        padding-top: 24px;
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    </style>
+  </body>
+</html>

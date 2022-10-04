@@ -1,0 +1,86 @@
+---
+import Card from "./Card.astro";
+import Header from "./Header.astro";
+import EditInteractionsButton from "../components/EditInteractionButton";
+import InputContainer from "./InputContainer.astro";
+import AddButton from "./AddButton";
+import DeleteFieldButton from "./DeleteFieldButton";
+import AddImageButton from "./AddImageButton";
+import Button from "./button";
+import CancelButton from "./CancelButton";
+
+export interface Props {
+  title: string;
+  description: string;
+  id: string;
+  commands: Array<string>;
+  responses: Array<string>;
+}
+
+const { title, description, id, commands, responses } = Astro.props;
+---
+
+<Card id={id}>
+  <div class="titleContainer">
+    <Header headerSize="medium" id="">{title}</Header>
+    <EditInteractionsButton client:idle />
+  </div>
+  <p class="interactionDescription">{description}</p>
+  <div id="addInteractionContainer">
+    <InputContainer headerText="Commands">
+      {
+        commands.map((element) => {
+          //prettier-ignore
+          return (
+            <div class="inputFieldContainer">
+              <input type="text" class="commandInput inputComponent" value={element} />
+              <DeleteFieldButton isVisible="yes" client:idle />
+            </div>
+          );
+        })
+      }
+      <AddButton iconUsed="add" innerText="Add command" client:idle />
+    </InputContainer>
+    <InputContainer headerText="Responses">
+      {
+        responses.map((element) => {
+          //prettier-ignore
+          return (
+            <div class="inputFieldContainer">
+              <textarea class="responseInput inputComponent">{element}</textarea>
+              <AddImageButton visible="flex" />
+              <DeleteFieldButton isVisible="yes" client:idle />
+            </div>
+          );
+        })
+      }
+      <AddButton iconUsed="add" innerText="Add response" client:idle />
+    </InputContainer>
+    <div class="inputAddButtons">
+      <Button
+        client:load
+        innerText="Save changes"
+        iconUsed=""
+        buttonType="small"
+      />
+      <CancelButton client:load />
+    </div>
+  </div>
+</Card>
+
+<style>
+  .titleContainer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    justify-content: stretch;
+  }
+  .interactionDescription {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  #addInteractionContainer {
+    display: none;
+    flex-direction: column;
+    gap: 24px;
+  }
+</style>

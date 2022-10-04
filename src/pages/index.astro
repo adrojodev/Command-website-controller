@@ -1,0 +1,87 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/button.jsx";
+import Header from "../components/Header.astro";
+import Card from "../components/Card.astro";
+import AddButton from "../components/AddButton.jsx";
+import InputContainer from "../components/InputContainer.astro";
+import InputFieldAndButtonContainer from "../components/InputFieldAndButtonContainer";
+import CancelButton from "../components/CancelButton";
+import "../styles/button.css";
+import "../styles/verticalButtonContainer.css";
+import { getInteractionsFromDatabase } from "../functions/firebase.js";
+import InteractionListing from "../components/InteractionListing.astro";
+import InteractionCard from "../components/InteractionCard.astro";
+
+const interactions = getInteractionsFromDatabase().interaction;
+const keyNumber = getInteractionsFromDatabase().keyNumbers;
+---
+
+<Layout title="Welcome to Astro.">
+  <Header headerSize="big" id="heroHeader">Skipper Bot 🦊</Header>
+  <Card id="inputCard">
+    <Header headerSize="medium" id="cardHeader">New Interaction ✨</Header>
+    <InputContainer headerText="Interaction info">
+      <input
+        type="text"
+        placeholder="Name"
+        class="inputComponent"
+        id="nameInput"
+        onchange="deleteEmptyClassHome(this)"
+      />
+      <input
+        type="text"
+        placeholder="Description"
+        class="inputComponent"
+        id="descriptionInput"
+        onchange="deleteEmptyClassHome(this)"
+      />
+    </InputContainer>
+    <InputContainer headerText="Commands">
+      <InputFieldAndButtonContainer
+        isVisible="no"
+        typeOfInput="Command"
+        client:load
+      />
+      <AddButton client:load innerText="Add command" iconUsed="add" />
+    </InputContainer>
+    <InputContainer headerText="Responses">
+      <InputFieldAndButtonContainer
+        isVisible="no"
+        typeOfInput="Response"
+        client:load
+      />
+      <AddButton client:load innerText="Add response" iconUsed="add" />
+    </InputContainer>
+    <div class="inputAddButtons">
+      <Button
+        client:load
+        innerText="Add interaction"
+        iconUsed=""
+        buttonType="small"
+      />
+      <CancelButton client:load />
+    </div>
+  </Card>
+  <Button
+    client:load
+    innerText="New interaction"
+    iconUsed="add"
+    buttonType="normal"
+  />
+  <InteractionListing>
+    {
+      interactions.map((interaction, index) => {
+        return (
+          <InteractionCard
+            title={interaction.name}
+            description={interaction.description}
+            id={keyNumber[index]}
+            commands={interaction.commands}
+            responses={interaction.responses}
+          />
+        );
+      })
+    }
+  </InteractionListing>
+</Layout>
