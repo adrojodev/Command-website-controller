@@ -92,7 +92,8 @@ var interactions = getInteractionsFromDatabase();
     }
   </InteractionListing>
   <script is:inline>
-    window.addEventListener("load", (event) => {
+    let listing = document.getElementById("interactionListings");
+    listing.addEventListener("load", (event) => {
       //Reloads until get firebase data
       if (document.getElementsByClassName("card").length == 1) {
         window.location.reload();
