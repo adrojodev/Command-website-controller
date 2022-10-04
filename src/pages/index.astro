@@ -94,7 +94,7 @@ var interactions = getInteractionsFromDatabase();
   <script is:inline>
     window.addEventListener("load", (event) => {
       //Reloads until get firebase data
-      if (document.getElementsByClassName("card").length == 0) {
+      if (document.getElementsByClassName("card").length == 1) {
         window.location.reload();
       }
     });
