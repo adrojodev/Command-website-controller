@@ -9,13 +9,11 @@ import InputFieldAndButtonContainer from "../components/InputFieldAndButtonConta
 import CancelButton from "../components/CancelButton";
 import "../styles/button.css";
 import "../styles/verticalButtonContainer.css";
+import { getInteractionsFromDatabase } from "../functions/firebase";
 import InteractionListing from "../components/InteractionListing.astro";
 import InteractionCard from "../components/InteractionCard.astro";
 
-const url = new URL(Astro.request.url);
-const contentUrl = `https://humankind-637da-default-rtdb.firebaseio.com/${url.pathname}.json`;
-const response = await fetch(contentUrl);
-const { interactions } = await response.json();
+var interactions = getInteractionsFromDatabase();
 ---
 
 <Layout title="Welcome to Astro.">
@@ -72,7 +70,7 @@ const { interactions } = await response.json();
   />
   <InteractionListing ids="interactionListings">
     {
-      Object.values(interactions).map(
+      interactions.map(
         (interaction: {
           name: string;
           description: string;
@@ -96,7 +94,7 @@ const { interactions } = await response.json();
   <script is:inline>
     window.addEventListener("load", (event) => {
       //Reloads until get firebase data
-      if (document.getElementsByClassName("card").length == 1) {
+      if (document.getElementsByClassName("card").length == 0) {
         window.location.reload();
       }
     });
