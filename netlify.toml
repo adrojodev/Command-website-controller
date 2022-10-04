@@ -1,6 +1,6 @@
 [functions]
   external_node_modules = ["astro"]
-  included_files = ["!node_modules/entry.mjs/**/*"]
+  included_files = ["!.netlify/functions-internal/ENTRY"]
 
 [build]
   command = "npm run build"
