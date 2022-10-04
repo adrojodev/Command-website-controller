@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, push, ref, onValue, child, set } from "firebase/database";
+import { getDatabase, push, ref, onValue, set } from "firebase/database";
 import {
   getStorage,
   uploadBytes,
