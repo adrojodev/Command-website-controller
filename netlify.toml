@@ -1,6 +1,6 @@
 [functions]
   external_node_modules = ["astro"]
-  included_files = ["!node_modules/ENTRY/**/*"]
+  included_files = ["!node_modules/entry.mjs/**/*"]
 
 [build]
   command = "npm run build"
