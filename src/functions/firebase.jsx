@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, push, ref, onValue, set } from "firebase/database";
+import { getDatabase, push, ref, set } from "firebase/database";
 import {
   getStorage,
   uploadBytes,
@@ -49,31 +49,6 @@ export async function saveNewCommandOnDatabase(
     responses: responses,
   }).then(() => {
     window.location.reload();
-  });
-}
-
-export function getInteractionsFromDatabase() {
-  onValue(ref(database, `interactions`), (snapshot) => {
-    let size = snapshot.val();
-    size = Object.values(size);
-    interactions = size;
-  });
-
-  return interactions;
-}
-
-export function getSpecificInteractionFromDatabase(elementId) {
-  return new Promise(function (resolve, reject) {
-    try {
-      onValue(ref(database, `interactions/${elementId}`), (snapshot) => {
-        interaction = snapshot.val();
-        interaction = Object.values(interaction);
-
-        resolve(interaction);
-      });
-    } catch (e) {
-      reject(e);
-    }
   });
 }
 
