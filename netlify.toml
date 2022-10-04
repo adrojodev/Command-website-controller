@@ -1,3 +1,4 @@
 [build]
+  external_node_modules = ["astro"]
   command = "npm run build"
   publish = "dist"
